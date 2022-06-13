@@ -1,0 +1,20 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: react-app
+spec:
+  template:
+    metadata:
+      annotations:
+        autoscaling.knative.dev/minScale: "1"
+        autoscaling.knative.dev/maxScale: "3"
+    spec:
+      containerConcurrency: 100
+      containers:
+      - image: gcr.io/rubik-web-app-1540579753013/react-app
+        ports:
+        - containerPort: 3000
+        resources:
+          limits:
+            memory: 256Mi
+            cpu: 100m
